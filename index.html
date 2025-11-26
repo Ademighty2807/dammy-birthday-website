@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Happy Birthday Damilola 🎉</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #ff5fa2, #ffc371);
+        color: white;
+        text-align: center;
+        overflow-x: hidden;
+    }
+
+    .container {
+        padding: 40px 20px;
+    }
+
+    .photo {
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        border: 5px solid white;
+        object-fit: cover;
+        margin: 20px auto;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    h1 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+    }
+
+    .countdown {
+        font-size: 1.6em;
+        margin-top: 20px;
+        background: rgba(255,255,255,.2);
+        padding: 15px;
+        border-radius: 12px;
+        display: inline-block;
+    }
+
+    .message {
+        display: none;
+        margin-top: 30px;
+        font-size: 1.3em;
+        line-height: 1.7;
+        background: rgba(255,255,255,.2);
+        padding: 25px;
+        border-radius: 15px;
+        animation: fadeIn 2s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    .heart {
+        position: fixed;
+        width: 15px;
+        height: 15px;
+        background: red;
+        transform: rotate(45deg);
+        animation: fall 5s linear infinite;
+    }
+
+    .heart:before,
+    .heart:after {
+        content: '';
+        width: 15px;
+        height: 15px;
+        background: red;
+        border-radius: 50%;
+        position: absolute;
+    }
+
+    .heart:before { left: -7px; }
+    .heart:after { top: -7px; }
+
+    @keyframes fall {
+        0% { top: -10px; opacity: 1; }
+        100% { top: 110vh; opacity: 0; }
+    }
+
+    footer {
+        margin-top: 40px;
+        font-size: 0.9em;
+        opacity: 0.9;
+    }
+</style>
+</head>
+
+<body>
+
+<audio id="birthdaySound">
+    <source src="birthday.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+    <h1>🎂 Countdown to Oluwadamilola's Birthday 🎂</h1>
+
+    <img src="dami.jpg" alt="Oluwadamilola" class="photo"/>
+
+    <div class="countdown" id="countdown">
+        Loading countdown...
+    </div>
+
+    <div class="message" id="birthdayMessage">
+        <h2>🎉 Happy Birthday My Love 🎉</h2>
+        <p>
+            Dear <strong>Oluwadamilola</strong>,<br><br>
+
+            Today the world is brighter because you were born.<br>
+            You are my happiness, my peace, my answered prayer.<br><br>
+
+            Your smile melts my worries,  
+            Your love makes me stronger,  
+            And your presence makes life beautiful.<br><br>
+
+            I pray this year brings you joy without limits,  
+            success without stress,  
+            and love without conditions.<br><br>
+
+            Thank you for being you.<br>
+            Thank you for loving me.<br><br>
+
+            I love you endlessly ❤️<br><br>
+
+            — <strong>Your Ademighty</strong>
+        </p>
+    </div>
+
+    <footer>
+        Made with ❤️ by Ademighty
+    </footer>
+</div>
+
+<script>
+    const countdownEl = document.getElementById("countdown");
+    const messageEl = document.getElementById("birthdayMessage");
+    const sound = document.getElementById("birthdaySound");
+
+    const birthdayDate = new Date();
+    birthdayDate.setDate(28);
+    birthdayDate.setHours(0,0,0,0);
+
+    function updateCountdown() {
+        const now = new Date();
+        const diff = birthdayDate - now;
+
+        if (diff <= 0) {
+            countdownEl.style.display = "none";
+            messageEl.style.display = "block";
+            playSound();
+            startHearts();
+            clearInterval(timer);
+            return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        countdownEl.innerHTML = `
+            ${days} Days | ${hours} Hours | ${minutes} Minutes | ${seconds} Seconds
+        `;
+    }
+
+    function playSound() {
+        sound.play().catch(() => {});
+    }
+
+    function startHearts() {
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = (3 + Math.random() * 2) + "s";
+            document.body.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 5000);
+        }, 300);
+    }
+
+    const timer = setInterval(updateCountdown, 1000);
+    updateCountdown();
+</script>
+
+</body>
+</html>
